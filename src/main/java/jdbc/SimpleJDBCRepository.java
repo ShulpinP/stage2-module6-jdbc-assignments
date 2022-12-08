@@ -20,16 +20,7 @@ public class SimpleJDBCRepository {
     private Connection connection = null;
     private PreparedStatement ps = null;
     private Statement st = null;
-    private final CustomDataSource dataSource;
-
-    {
-        try {
-            dataSource = CustomDataSource.getInstance();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+    private final CustomDataSource dataSource = CustomDataSource.getInstance();
     private static final String createUserSQL = """
             INSERT INTO myusers(
             firstname, lastname, age)
