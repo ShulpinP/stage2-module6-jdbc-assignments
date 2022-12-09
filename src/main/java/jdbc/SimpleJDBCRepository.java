@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,16 +19,7 @@ public class SimpleJDBCRepository {
     private Connection connection = null;
     private PreparedStatement ps = null;
     private Statement st = null;
-    private CustomDataSource dataSource = null;
-
-    {
-        try {
-            dataSource = CustomDataSource.getInstance();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+    private final CustomDataSource dataSource = CustomDataSource.getInstance();
     private static final String createUserSQL = """
             INSERT INTO myusers(
             firstname, lastname, age)
@@ -51,7 +41,7 @@ public class SimpleJDBCRepository {
             """;
     private static final String findUserByNameSQL =  """
             SELECT id, firstname, lastname, age FROM myusers
-            WHERE firstname = ?
+            WHERE firstname LIKE CONCAT ('%', ? '%')
             """;
     private static final String findAllUserSQL = """
             SELECT id, firstname, lastname, age
