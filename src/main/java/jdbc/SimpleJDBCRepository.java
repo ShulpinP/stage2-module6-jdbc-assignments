@@ -132,9 +132,8 @@ public class SimpleJDBCRepository {
     }
 
     public void deleteUser(Long userId) {
-        try (
-                var conn = dataSource.getConnection();
-                var statement = conn.prepareStatement(deleteUser)) {
+        try (var conn = dataSource.getConnection();
+             var statement = conn.prepareStatement(deleteUser)) {
             statement.setLong(1, userId);
             statement.executeUpdate();
         } catch (SQLException e) {
