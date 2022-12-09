@@ -8,16 +8,16 @@ public class CustomConnector {
     public Connection getConnection(String url) {
         try {
             return DriverManager.getConnection(url);
-        } catch (SQLException e) {
-            throw new RuntimeException();
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public Connection getConnection(String url, String user, String password)  {
         try {
-            return DriverManager.getConnection(url, user, password);
+            return DriverManager.getConnection(url,user,password);
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 }
